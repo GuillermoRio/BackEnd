@@ -25,6 +25,29 @@ const getCharacterTheRightWay = async (id: number) => {
     }
 }
 
-const personaje = await (getCharacterTheRightWay(2));
+//const personaje = await (getCharacterTheRightWay(2));
 
-console.log(personaje);
+//console.log(personaje);
+
+const getCharacters = async (ids: number[]) => {
+    ids.forEach(async (x) => {
+        //console.log(await getCharacterTheRightWay(x));
+    });
+};
+
+//getCharacters([1,2,3]);
+
+const getMultipleChar = async (ids: number[]) => {
+    const promesas = ids.map((elem) => {
+        const arrDePromesas1 =  axios.get("https://rickandmortyapi.com/api/character/" + elem);
+        const arrDePromesas2 = axios.get(`https://rickandmortyapi.com/api/character/${elem}`);
+        
+        return arrDePromesas2;
+    });
+    
+    const responses = await Promise.all(promesas)
+    console.log(responses);
+};
+
+getMultipleChar([4,5,6])
+
