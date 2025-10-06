@@ -1,5 +1,6 @@
 import axios from "axios"
-
+//Promise all si una promesa no llega, nada llegara a su destino y tiraria catch
+//Con allsettled no hace falta que todas las promesas lleguen y si alguna es un error decirlo
 type Character = {
     name: string,
 }
@@ -23,3 +24,18 @@ const getMultipleCharsName = async (id: number[]) => {
 
 const nombresDev = await getMultipleCharsName([1, 2, 3])
 console.log(nombresDev);
+
+const getCharacterSave = async (ids: number[]) => {
+    const promesas = ids.map(async (elem) => {
+        (await axios.get(`https://rickandmortyapi.com/api/character/${elem}`)).data;
+    });
+    const result = await Promise.allSettled(promesas);
+
+    result.forEach((elem) => {
+        if(elem.status == "fulfilled"){
+            console.log(elem.value);
+        }else{
+            console.log(elem.status, "Error");
+        };
+    });
+};
