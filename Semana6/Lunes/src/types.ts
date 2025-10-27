@@ -1,7 +1,7 @@
 
 
-type Cochesito = {
-    name: string,
-    plate: string,
-    age: 30
+export type Cochecito = {
+    name: string;
+    plate: string;
+    age: number;
 }
